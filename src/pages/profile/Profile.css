@@ -1,0 +1,297 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  gap: 2rem;
+  padding: 0 1rem;
+  color: #f5f6fa;
+  margin-top: 10vh;
+}
+
+.profile-card {
+  padding: 2.5rem;
+  background: linear-gradient(145deg, #2d3436, #1e272e);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.profile-card h2 {
+  color: #f5f6fa;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.profile-info {
+  margin-top: 1.5rem;
+}
+
+.profile-info p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #dfe6e9;
+}
+
+.profile-info span {
+  font-weight: 600;
+}
+
+.profile-info .active {
+  color: #55efc4;
+  background: rgba(85, 239, 196, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.profile-info .inactive {
+  color: #ff7675;
+  background: rgba(214, 48, 49, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.error {
+  color: #ff7675;
+  text-align: center;
+  font-weight: 600;
+  padding: 1.5rem;
+  background: rgba(214, 48, 49, 0.1);
+  border-radius: 12px;
+  border-left: 4px solid #d63031;
+}
+
+.plans-section {
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plans-title {
+  text-align: center;
+  color: #a29bfe;
+  margin-bottom: 2.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  width: 100%;
+  position: relative;
+}
+
+.plans-title::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, #6c5ce7, transparent);
+  margin: 0.8rem auto 0;
+}
+
+.plans-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1100px;
+  gap: 1.5rem;
+}
+
+.plan-card {
+  background: linear-gradient(145deg, #2d3436, #1e272e);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 2.2rem;
+  flex: 1;
+  min-width: 280px;
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border-color: rgba(108, 92, 231, 0.3);
+}
+
+.plan-card.featured {
+  border: 1px solid #6c5ce7;
+}
+
+.plan-card.featured::before {
+  content: "Recomendado";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #6c5ce7;
+  color: white;
+  padding: 0.3rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: translateY(-50%) rotate(30deg) translateX(30%);
+  transform-origin: bottom left;
+}
+
+.plan-card h3 {
+  color: #f5f6fa;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #a29bfe;
+  margin-bottom: 1.5rem;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.plan-features li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #dfe6e9;
+  display: flex;
+  align-items: center;
+}
+
+.plan-features li::before {
+  content: "✓";
+  color: #55efc4;
+  margin-right: 0.8rem;
+  font-weight: bold;
+}
+
+.plan-button {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.plan-button:hover {
+  background: linear-gradient(135deg, #5c4bd7, #9288fd);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+}
+
+.selected-plan-section {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.selected-plan-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(145deg, #2d3436, #1e272e);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.selected-plan-info p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #dfe6e9;
+}
+
+.selected-plan-info strong {
+  color: #a29bfe;
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #00b894, #55efc4);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+  align-self: center;
+}
+
+.buy-button:hover {
+  background: linear-gradient(135deg, #00a884, #4ad8b4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+}
+
+.plan-card.selected {
+  border: 1px solid #00b894;
+  box-shadow: 0 0 20px rgba(0, 184, 148, 0.3);
+}
+
+.pay-section {
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(145deg, #2d3436, #1e272e);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #a29bfe;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .plans-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .plan-card {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-card:last-child {
+    margin-bottom: 0;
+  }
+}
