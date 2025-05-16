@@ -1,6 +1,7 @@
 .profile-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   max-width: 1200px;
   margin: 2rem auto;
   font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -25,7 +26,9 @@
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
   font-weight: 600;
+  text-transform: capitalize;
 }
+
 
 .profile-info {
   margin-top: 1.5rem;
@@ -37,21 +40,23 @@
   color: #dfe6e9;
 }
 
+
+
 .profile-info span {
   font-weight: 600;
 }
 
 .profile-info .active {
-  color: #55efc4;
-  background: rgba(85, 239, 196, 0.1);
+  color: #06162D;
+  background: #60E665;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   display: inline-block;
 }
 
 .profile-info .inactive {
-  color: #ff7675;
-  background: rgba(214, 48, 49, 0.1);
+  color: #06162D;
+  background: #E66060;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   display: inline-block;

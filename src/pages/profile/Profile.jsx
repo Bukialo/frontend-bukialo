@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./Profile.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { useAuth } from "../../authContext/authContext.jsx"; // Asegúrate de que la ruta sea correcta
+import { useAuth } from "../../authContext/authContext.jsx";
 import axios from "axios";
+import CardList from "../../components/cads/Cards.jsx";
 
 initMercadoPago("TEST-717b6537-8d42-49bc-b447-0b6a364065ee", {
   locale: "es-AR",
@@ -24,37 +25,7 @@ const Profile = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showWallet, setShowWallet] = useState(false);
 
-  const plans = [
-    {
-      type: "Plan Básico",
-      price: 10000,
-      features: ["Acceso básico", "Soporte estándar", "1 usuario"],
-      backendValue: 1,
-    },
-    {
-      type: "Plan Premium",
-      price: 20000,
-      features: [
-        "Acceso completo",
-        "Soporte prioritario",
-        "5 usuarios",
-        "Funciones avanzadas",
-      ],
-      backendValue: 2,
-    },
-    {
-      type: "Plan Empresarial",
-      price: 30000,
-      features: [
-        "Acceso ilimitado",
-        "Soporte 24/7",
-        "Usuarios ilimitados",
-        "Funciones premium",
-      ],
-      backendValue: 3,
-    },
-  ];
-
+  // Recibe el plan seleccionado desde CardList
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
     setShowWallet(false);
@@ -111,12 +82,14 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-card">
-        <h2>Hola {userData.full_name || "Usuario"}</h2>
+        <h2 className="profile-title">Hola {userData.full_name || "Usuario"}</h2>
         <div className="profile-info">
           <p>
             Estado de la cuenta:{" "}
             <span className={isApproved ? "active" : "inactive"}>
-              {isApproved ? "ACTIVA" : "INACTIVA"}
+              {isApproved
+                ? "Tu cuenta está Activa"
+                : "Tu cuenta está Desactivada"}
             </span>
           </p>
           {isApproved && (
@@ -129,38 +102,19 @@ const Profile = () => {
 
       {!isApproved && (
         <>
-          <h3>Selecciona un plan para activar tu cuenta</h3>
-          <div className="plans-container">
-            {plans.map((plan, index) => (
-              <div
-                key={index}
-                className={`plan-card ${index === 1 ? "featured" : ""} ${
-                  selectedPlan?.type === plan.type ? "selected" : ""
-                }`}
-              >
-                <h3>{plan.type}</h3>
-                <p className="plan-price">${plan.price.toFixed(2)}/mes</p>
-                <ul className="plan-features">
-                  {plan.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-                <button
-                  className="plan-button"
-                  onClick={() => handleSelectPlan(plan)}
-                >
-                  Seleccionar
-                </button>
-              </div>
-            ))}
-          </div>
+          <h2>Selecciona un plan para activar tu cuenta</h2>
+          {/* Cards de planes */}
+          <CardList
+            onSelectPlan={handleSelectPlan}
+            selectedPlan={selectedPlan}
+          />
 
           {selectedPlan && (
             <div className="selected-plan-section">
               <div className="selected-plan-info">
                 <p>
                   Plan seleccionado: <strong>{selectedPlan.type}</strong> - $
-                  {selectedPlan.price.toFixed(2)}/mes
+                  {selectedPlan.price?.toFixed(2)}/mes
                 </p>
                 <button
                   className="buy-button"

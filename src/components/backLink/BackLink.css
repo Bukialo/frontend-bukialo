@@ -1,0 +1,41 @@
+.link {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 500;
+    transition: color 0.2s;
+    margin-bottom: 18px;
+    gap: 10px;
+    margin-left: 50px;
+  }
+  
+  .link:hover {
+    color: #28ddc1;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  .text {
+    font-size: 1.18em;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 600px) {
+    .link {
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+    .icon {
+      font-size: 1.3em;
+    }
+    .text {
+      font-size: 1em;
+    }
+  }

@@ -3,8 +3,10 @@ import axios from "axios";
 import "./CreateInstance.css";
 import QrButtons from "../../common/buttonsQrInstance/ButtonsQrInstance.jsx";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../authContext/authContext.jsx";
 
 const CreateInstance = () => {
+  const { userData } = useAuth();
   const [formData, setFormData] = useState({
     instanceName: "",
     number: "",
@@ -117,6 +119,15 @@ const CreateInstance = () => {
 
   return (
     <div className="instance-container">
+      <div className="instance-header">
+        <h2 className="instance-title">
+          ¡Hola {userData.full_name || "Usuario"}!{" "}
+        </h2>
+        <p>
+          Primero, completá el nombre de tu empresa y el número de teléfono que
+          usarás con WhatsApp.
+        </p>
+      </div>
       {showForm ? (
         <form onSubmit={handleSubmit} className="instance-form">
           <div className="form-group">
@@ -131,6 +142,7 @@ const CreateInstance = () => {
               onChange={handleChange}
               required
               className="form-input"
+              placeholder="Escribí el nombre de tu empresa aqui"
             />
           </div>
           <div className="form-group">
@@ -145,10 +157,15 @@ const CreateInstance = () => {
               onChange={handleChange}
               required
               className="form-input"
+              placeholder="Escribí tu número de teléfono aqui"
             />
+            <span className="form-hint">
+              Este sera el numero que se conectara con el asistente
+            </span>
           </div>
-          <button type="submit" className="submit-button" disabled={loading}>
-            {loading ? "Enviando..." : "Crear"}
+
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Enviando..." : "Continuar con la configuración"}
           </button>
 
           {error && !qrCode && (
@@ -158,8 +175,34 @@ const CreateInstance = () => {
           )}
         </form>
       ) : (
-        <div className="qr-container">
-          <h3 className="qr-title">Escanea este código QR con WhatsApp</h3>
+        <div className="instance-container">
+      <h2 className="qr-main-title">¡Último paso! Conectá tu asistente.</h2>
+      <p className="qr-main-subtitle">
+        Seguí estos 4 pasos para conectar tu asistente.
+      </p>
+      <div className="qr-container">
+        <div className="qr-steps">
+          <ol className="qr-steps-list">
+            <li>1. Ir a WhatsApp desde tu teléfono.</li>
+            <li>2. Tocar en el Menú (tres puntitos).</li>
+            <li>
+              3. Seleccionar <strong>Dispositivos Vinculados</strong>.
+            </li>
+            <li>
+              4. Elegir <strong>Vincular un Dispositivo</strong> y escanear el código QR.
+            </li>
+          </ol>
+          <div className="qr-actions">
+            <button className="qr-btn-green">Ya escaneé el código QR</button>
+            <button className="qr-btn-outline">Obtener un nuevo código</button>
+          </div>
+          <div className="qr-help">
+            ¿Problemas para escanear el código?
+            <a href="#">Ayuda aquí.</a>
+          </div>
+        </div>
+        <div className="qr-right">
+          <div className="qr-title">Código QR</div>
           <div className="qr-image-container">
             <img
               src={qrCode}
@@ -172,21 +215,16 @@ const CreateInstance = () => {
               Código de emparejamiento: {pairingCode}
             </div>
           )}
-          <p className="qr-instructions">
-            Abre WhatsApp en tu teléfono, toca Menú → Dispositivos vinculados →
-            Vincular un dispositivo y escanea este código QR
-          </p>
-          <QrButtons></QrButtons>
         </div>
-      )}
-
+      </div>
       {loading && <div className="loading">Cargando...</div>}
-
       {error && showForm && typeof error !== "string" && (
         <div className="error-container">
           <h3 className="error-title">Error:</h3>
           <pre className="error-content">{JSON.stringify(error, null, 2)}</pre>
         </div>
+      )}
+    </div>
       )}
     </div>
   );

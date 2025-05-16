@@ -6,6 +6,7 @@ import Dashboard from "../pages/dashboard/Dashboard.jsx";
 import Profile from "../pages/profile/Profile.jsx";
 import PaymentSuccess from "../pages/payment_mp/paymentSuccess/PaymentSuccess.jsx";
 import PaymentFailed from "../pages/payment_mp/paymentFailed/PaymentFailed.jsx";
+import CreateInstance from "../components/createInstance/CreateInstance.jsx";
 
 export const routes = [
   {
@@ -36,7 +37,7 @@ export const routes = [
     id: "dashboard",
     path: "/dashboard",
     Element: Dashboard,
-    public: false,
+    public: true,
   },
   {
     id: "profile",
@@ -55,5 +56,11 @@ export const routes = [
     path: "/payment-failed",
     Element: PaymentFailed,
     public: false,
+  },
+  {
+    id: "create-instance",
+    path: "/create-instance",
+    Element: CreateInstance,
+    public: true
   },
 ];
