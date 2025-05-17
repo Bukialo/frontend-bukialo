@@ -14,7 +14,6 @@ on:
 
 jobs:
   terraform:
-    environment: Production
     name: push web on s3
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +39,7 @@ jobs:
           ref: develop
 
       - name: Move your files to a temporary dev directory
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop'AWS_ACCESS_KEY_ID_ID
         run: |
           mkdir -p ../temp-dev
           mv * ../temp-dev/
