@@ -1,0 +1,206 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to AWS
+
+on:
+  # Runs on pushes targeting the default branch
+  workflow_dispatch:
+  push:
+    branches: 
+      - main
+      - develop
+    paths:
+      - 'app/**' 
+      - '!.github/**'
+
+jobs:
+  terraform:
+    environment: Production
+    name: push web on s3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository name
+        run: echo "REPO=$(echo ${{ github.repository }} | cut -d'/' -f 2 | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Checkout
+        if: github.ref == 'refs/heads/main'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Move your files to a temporary directory
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p ../temp
+          mv * ../temp/
+
+      - name: Checkout
+        if: github.ref == 'refs/heads/develop'
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Move your files to a temporary dev directory
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          mkdir -p ../temp-dev
+          mv * ../temp-dev/
+
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          repository: asuser-dev/infra-web-asuser-tf
+          token: ${{ secrets.GH_PAT }}
+          ref: main
+
+      - name: Replace $REPO in main.tf
+        run: |
+          cd aws-s3
+          ls
+          sed -i "s/\$REPO/${{ env.REPO }}/g" main.tf
+          cat main.tf
+
+      - name: Replace $REPO in variables.tf
+        run: |
+          cd aws-s3
+          sed -i "s/\$REPO/${{ env.REPO }}/g" variables.tf
+
+      - name: Replace $DOMINIO in route53.tf
+        run: |
+          cd aws-s3
+          sed -i "s/\$DOMINIO/${{ vars.DOMINIO }}/g" route53.tf
+
+      - name: Replace $DOMINIO in variables.tf
+        run: |
+          cd aws-s3
+          sed -i "s/\$DOMINIO/${{ vars.DOMINIO }}/g" variables.tf
+
+      - name: Replace $DOMINIO in cloudfront.tf
+        run: |
+          cd aws-s3
+          sed -i "s/\$DOMINIO/${{ vars.DOMINIO }}/g" cloudfront.tf
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+      - name: Buld y mover todos los files prod
+        if: github.ref == 'refs/heads/main'
+        run: |
+            ls
+            pwd
+            cd ../temp/app
+            npm install
+            npm run build
+            cd dist
+            ls ../../../
+            mkdir ../../../$REPO/aws-s3/web
+            mv * ../../../$REPO/aws-s3/web/
+
+      - name: Buld y mover todos los files dev
+        if: github.ref == 'refs/heads/develop'
+        run: |
+            ls
+            pwd
+            cd ../temp-dev/app
+            npm install
+            npm run build
+            cd dist
+            ls ../../../
+            mkdir ../../../$REPO/aws-s3/web-dev
+            mv * ../../../$REPO/aws-s3/web-dev/
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.1.7"
+
+      - name: Configure AWS credentials
+        run: |
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/credentials
+          echo "AWS_ACCESS_KEY_ID_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          aws configure set AWS_ACCESS_KEY_ID_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region us-east-1
+
+      - name: Create DynamoDB table
+        run: |
+          TABLE_NAME="my-terraform-state-lock-auto-web-${{ env.REPO }}"
+
+          # Check if the table exists
+          if ! aws dynamodb describe-table --table-name $TABLE_NAME > /dev/null 2>&1
+          then
+              # If the table does not exist, create it
+              aws dynamodb create-table \
+                  --table-name $TABLE_NAME \
+                  --attribute-definitions AttributeName=LockID,AttributeType=S \
+                  --key-schema AttributeName=LockID,KeyType=HASH \
+                  --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+                  sleep 60
+          fi
+
+      - name: Terraform init and apply INITIAL
+        if: ${{ vars.INITIAL_CREATE == 'true' }}
+        run: |
+          cd aws-s3
+          terraform init
+          #terraform plan
+          terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform init and apply PROD
+        if: (github.ref == 'refs/heads/main') && (vars.INITIAL_CREATE == 'false')
+        run: |
+          cd aws-s3
+          terraform init
+          terraform apply -auto-approve \
+            -target=aws_s3_bucket.bucket_web \
+            -target=aws_s3_bucket_object.site_files
+        env:
+          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform init and apply DEV
+        if: (github.ref == 'refs/heads/develop') && (vars.INITIAL_CREATE == 'false')
+        run: |
+          cd aws-s3
+          terraform init
+          terraform apply -auto-approve \
+            -target=aws_s3_bucket.bucket_web_dev \
+            -target=aws_s3_bucket_object.site_files_dev
+        env:
+          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+
+      - name: Clean cloufront cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd aws-s3
+          # Ejecutar Terraform y guardar el valor de cloudfront_domain_name en una variable
+          terraform output -raw cloudfront_domain_name
+          cloudfront_domain_name=$(terraform output -raw cloudfront_domain_name | sed -n 's/.*\(\S\{14\}\)\.cloudfront\.net.*/\1.cloudfront.net/p' | head -n 1)
+          echo "$cloudfront_domain_name"
+          # Extraer el ID de la distribución de CloudFront del nombre de dominio
+          distribution_id=$(aws cloudfront list-distributions --query "DistributionList.Items[?DomainName=='${cloudfront_domain_name}'].Id" --output text)
+          echo "debug distribution_id $distribution_id"
+      
+          # Crear la invalidaciónj
+          aws cloudfront create-invalidation --distribution-id $distribution_id --paths "/*" --profile default
+
+      - name: Clean cloufront cache dev
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          cd aws-s3
+          # Ejecutar Terraform y guardar el valor de cloudfront_domain_name en una variable
+          cloudfront_domain_name_dev=$(terraform output -raw cloudfront_domain_name_dev | sed -n 's/.*\(\S\{14\}\)\.cloudfront\.net.*/\1.cloudfront.net/p' | head -n 1)
+          echo "$cloudfront_domain_name_dev"
+          # Extraer el ID de la distribución de CloudFront del nombre de dominio dev
+          distribution_id_dev=$(aws cloudfront list-distributions --query "DistributionList.Items[?DomainName=='${cloudfront_domain_name_dev}'].Id" --output text)
+          echo "debug distribution_id_dev $distribution_id_dev"
+      
+          # Crear la invalidación
+          aws cloudfront create-invalidation --distribution-id $distribution_id_dev --paths "/*" --profile default
