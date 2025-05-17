@@ -1,0 +1,180 @@
+.cards-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 60px auto 40px auto;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 0 24px;
+  }
+  
+  .info-card {
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(40, 221, 193, 0.10);
+    padding: 36px 28px 32px 28px;
+    min-width: 260px;
+    max-width: 340px;
+    flex: 1 1 300px;
+    text-align: left;
+    color: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+    border: 1.5px solid rgba(40, 221, 193, 0.08);
+  }
+
+  .info-card:hover {
+    cursor: pointer;
+  }
+  
+  .info-card h3 {
+    color: #fff;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .info-card > div:first-of-type {
+    background: rgba(255,255,255,0.07);
+    border-radius: 18px;
+    padding: 18px 18px 10px 18px;
+    margin-bottom: 10px;
+  }
+  
+  .info-card p {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  .info-card .price-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    margin-bottom: 10px;
+  }
+  
+  .info-card .price-label {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-right: 12px;
+    min-width: 80px;
+    display: inline-block;
+  }
+  
+  .info-card .price-value {
+    color: #06162d;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: inline-block;
+  }
+  
+  .info-card .price-value.year {
+    color: #222;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-card .price-value.month {
+    color: #222;
+    font-size: 1.1rem;
+    font-weight: 700;
+
+  }
+  
+  .info-card .price-discount {
+    color: #4caf50;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  
+  .info-card .divider {
+    border: none;
+    border-top: 2px solid #28ddc1;
+    margin: 16px 0 12px 0;
+    width: 100%;
+    opacity: 0.7;
+  }
+  
+  .info-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .info-card li {
+    color: #b2fefa;
+    font-size: 1.1rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .info-card li::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    background-image: url('../../assets/mask group.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+  }
+  
+  @media (max-width: 900px) {
+    .cards-section {
+      gap: 18px;
+      padding: 0 8vw;
+    }
+    .info-card {
+      min-width: 180px;
+      max-width: 98vw;
+      padding: 24px 10px 20px 10px;
+    }
+    .info-card h3 {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .cards-section {
+      gap: 10px;
+      padding: 0 2vw;
+      margin: 24px auto 20px auto;
+    }
+    .info-card {
+      padding: 16px 6px 12px 6px;
+      min-width: 120px;
+      max-width: 98vw;
+      border-radius: 12px;
+      gap: 8px;
+    }
+    .info-card h3 {
+      font-size: 1.05rem;
+    }
+    .info-card p,
+    .info-card .price-label,
+    .info-card .price-value,
+    .info-card .price-discount,
+    .info-card li {
+      font-size: 0.98rem;
+    }
+  }

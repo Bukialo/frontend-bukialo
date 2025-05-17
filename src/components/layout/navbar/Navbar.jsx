@@ -1,86 +1,114 @@
 import { useAuth } from "../../../authContext/authContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import astronautaProfile from "../../../assets/astronauta-profile.png";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [showButtons, setShowButtons] = useState(false);
   const { userData, logout } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleButtons = () => {
-    setShowButtons(!showButtons);
-  };
+  // Lógica para los botones según la ruta y autenticación
+  let buttons = [];
 
-  const handleLogout = () => {
-    logout();
-    navigate("/", { replace: true });
-  };
+  if (userData) {
+    buttons = [
+      {
+        icon: (
+          <img
+            src={astronautaProfile}
+            alt="Perfil"
+            className="navbar-profile-icon"
+            onClick={() => navigate("/profile")}
+            title="Ir a mi perfil"
+            style={{ cursor: "pointer" }}
+          />
+        ),
+      },
+      {
+        label: "Salir",
+        onClick: () => {
+          logout();
+          navigate("/", { replace: true });
+        },
+      },
+    ];
+  } else if (location.pathname === "/") {
+    buttons = [
+      {
+        label: "Registrarme",
+        to: "/register",
+      },
+      {
+        label: "Iniciar Sesión",
+        to: "/login",
+      },
+    ];
+  } else if (location.pathname === "/register") {
+    buttons = [
+      {
+        label: "Iniciar Sesión",
+        to: "/login",
+      },
+    ];
+  } else if (location.pathname === "/login") {
+    buttons = [
+      {
+        label: "Registrarme",
+        to: "/register",
+      },
+    ];
+  } else {
+    buttons = [
+      {
+        label: "Registrarme",
+        to: "/register",
+      },
+    ];
+  }
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="navbar-content">
-        <div className="navbar-icon">
-          <Link to="/">bookealo</Link>
-        </div>
-
-        <div className="navbar-main-buttons">
-          {userData && (
-            <Link to="/dashboard">
-              <button className="nav-button">Dashboard</button>
-            </Link>
-          )}
-          <Link to="/contact">
-            <button className="nav-button">Contacto</button>
-          </Link>
-        </div>
-
-        <div className="navbar-dropdown">
-          <button onClick={toggleButtons} className="icon-button">
-            <img
-              src="src/assets/contrasena.png"
-              alt="Menú de usuario"
-              className="userData-icon"
-            />
-          </button>
-
-          {showButtons && (
-            <div className="dropdown-menu">
-              {userData ? (
-                <>
-                  <Link to="/profile">
-                    <button className="dropdown-button">Perfil</button>
-                  </Link>
-                  <button
-                    className="dropdown-button logout-button"
-                    onClick={handleLogout}
-                  >
-                    Cerrar sesión
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login">
-                    <button className="dropdown-button">Iniciar sesión</button>
-                  </Link>
-                  <Link to="/register">
-                    <button className="dropdown-button">Registrarse</button>
-                  </Link>
-                </>
-              )}
-            </div>
-          )}
+    <nav className={`navbar-custom ${scrolled ? "scrolled" : ""}`}>
+      <div className="navbar-content-custom">
+        <h1 className="navbar-title">
+          <Link to="/">BUKIALO</Link>
+        </h1>
+        <div className="navbar-main-action">
+          {buttons.map((btn, idx) => {
+            if (btn.icon) {
+              return (
+                <span key="profile-icon" className="navbar-profile-icon-wrapper">
+                  {btn.icon}
+                </span>
+              );
+            }
+            const isRegister = btn.label === "Registrarme";
+            return btn.onClick ? (
+              <button
+                className={`main-action-btn${isRegister ? " transparent" : ""}`}
+                onClick={btn.onClick}
+                key={btn.label}
+              >
+                {btn.label}
+              </button>
+            ) : (
+              <Link to={btn.to} key={btn.label}>
+                <button className={`main-action-btn${isRegister ? " transparent" : ""}`}>
+                  {btn.label}
+                </button>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>

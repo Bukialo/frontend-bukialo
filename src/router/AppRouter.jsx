@@ -21,7 +21,6 @@ const AppRouter = () => {
               <Route key={id} path={path} element={<Element />} />
             ))}
         </Route>
-
         <Route path="*" element={<RouteNotFound />} />
       </Route>
     </Routes>

@@ -8,9 +8,18 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="welcome-box">
-        <h1 className="welcome-title">Bienvenido a Bookealo</h1>
-        <p className="welcome-subtitle">Tu plataforma de reservas favorita</p>
+        <h1 className="welcome-title">
+          Bienvenido {userData.full_name || "Usuario"}
+        </h1>
+        <p className="subtitle">
+          Te damos la bienvenida a Bukialo, tu asistente inteligente de gestión
+          de turnos. Automatizá tus citas con nuestro Agente IA por WhatsApp,
+          con agendado directo en Google Calendar. Desde tu cuenta podrás
+          activar o desactivar el bot y administrar tu número de contacto.
+        </p>
+        <button className="submit-button">Probalo gratis por 30 dias</button>
       </div>
+
       {token && userData?.status === "approved" && <CreateInstance />}
     </div>
   );

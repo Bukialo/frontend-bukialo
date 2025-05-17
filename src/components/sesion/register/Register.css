@@ -1,49 +1,81 @@
 .register-container {
-  margin-top: 1vh;
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  flex-direction: column;
+  background: transparent;
+  padding: 32px 0;
+  box-sizing: border-box;
 }
 
 .register-box {
-  width: 350px;
-  padding: 30px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  background: rgba(217, 217, 217, 0.13);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(40, 221, 193, 0.10);
+  padding: 38px 32px 32px 32px;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  gap: 40px;
+  align-items: stretch;
 }
 
-.register-icon {
-  width: 25vh;
-  height: 25vh;
-  margin-bottom: 20px;
+.register-title {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fcfcfc;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
 }
 
 .register-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
+}
+
+.register-label {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #fcfcfc;
+  margin-bottom: 2px;
+  margin-left: 4px;
+  font-weight: 500;
 }
 
 .register-input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 100px;
+  background-color: #fcfcfc;
+  border: none;
+  font-size: 1rem;
+  color: #06162d;
+  margin-bottom: 4px;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(40, 221, 193, 0.08);
+}
+
+.register-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #28ddc1;
 }
 
 .terms-checkbox {
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 18px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  color: white;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #fff;
 }
 
 .terms-checkbox input {
@@ -52,16 +84,74 @@
 
 .register-button {
   width: 100%;
-  padding: 10px;
-  background-color: #34a853;
-  color: white;
+  height: 40px;
+  border-radius: 100px;
+  background: #28DDC1;
+  color: #06162D;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(40, 221, 193, 0.15);
+}
+
+.register-button p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #06162d;
 }
 
 .register-button:hover {
-  background-color: #2d9147;
+  background: linear-gradient(135deg, #2d9147 60%, #28ddc1 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .register-box {
+    max-width: 90vw;
+    padding: 32px 16px;
+    border-radius: 20px;
+  }
+  .register-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* iPhone 16 Pro & small screens */
+@media (max-width: 600px) {
+  .register-container {
+    padding: 12px 0;
+  }
+  .register-box {
+    min-width: 0;
+    max-width: 98vw;
+    padding: 18px 6px 12px 6px;
+    border-radius: 12px;
+    gap: 8px;
+  }
+  .register-title {
+    font-size: 1.3rem;
+  }
+  .register-label,
+  .register-input,
+  .register-button {
+    font-size: 0.98rem;
+  }
+  .register-input {
+    height: 38px;
+    padding: 0 12px;
+  }
+  .register-button {
+    height: 38px;
+    font-size: 0.98rem;
+  }
 }

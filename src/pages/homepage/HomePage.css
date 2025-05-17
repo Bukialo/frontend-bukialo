@@ -1,56 +1,407 @@
-/* HomePage.css */
 .homepage-container {
+  width: 100vw;
+  min-height: 100vh;
+  font-family: 'Poppins', Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  background: transparent;
 }
 
-.section-1 {
-  background-image: url("src/assets/testsection1.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Banner principal */
+.banner-section p {
+  font-size: 1.15rem;
+  color: #cfd8dc;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  letter-spacing: 0px;
   text-align: center;
-  color: white;
+  max-width: 1100px; /* antes 900px */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.section-1 h1,
-.section-1 h2 {
-  margin: 10px 0;
-  transition: all 0.3s ease;
+.banner-section header {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 48px 32px;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.section-1 h1 {
-  font-size: 4rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+.banner-section h1 {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  color: #fcfcfc;
+  text-shadow: 0 2px 8px rgba(40, 221, 193, 0.10);
 }
 
-.section-1 h2 {
-  font-size: 1.5rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-  max-width: 600px;
+.banner-section p {
+  font-size: 1.15rem;
+  color: #cfd8dc;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  text-align: center;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.section-1 h1:hover,
-.section-1 h2:hover {
-  color: #f4a261;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+.banner-section p span {
+  color: #fff;
+  font-weight: 600;
+}
+
+.banner-section button {
+  margin-top: 18px;
+  padding: 14px 0;
+  width: 80%;
+  max-width: 320px;
+  align-self: center;
+  border: none;
+  border-radius: 100px;
+  background: #28DDC1;
+  color: #06162d;
+  font-size: 1.2rem;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(40, 221, 193, 0.15);
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.banner-section button:hover {
+  background: linear-gradient(135deg, #2d9147 60%, #28ddc1 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Sección imagen + texto */
+.feature-section {
+  width: 100%;
+  max-width: 1100px;
+  margin: -70px auto 0 auto;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  position: relative;
+  z-index: 2;
+  min-height: 180px;
+}
+
+.feature-img-container {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+  z-index: 3;
+}
+
+.feature-img {
+  width: 320px;
+  max-width: 40vw;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: none;
+  background: none;
+  object-fit: contain;
+  margin-top: -40px;
+  margin-bottom: 0;
+  z-index: 4;
+  transition: transform 0.5s ease-out;
+  cursor: pointer;
+}
+
+/* Animación para el astronauta de arriba */
+.astronauta-float-1 {
+  animation: astronauta1-flotar 4s forwards;
+}
+
+@keyframes astronauta1-flotar {
+  0% {
+    transform: translateY(0) scale(1) rotate(10deg);
+  }
+  50% {
+    transform: translateY(-300px) translateX(-200px) scale(0.8) rotate(10deg);
+  }
+  100% {
+    transform: translateY(-800px) translateX(-400px) scale(0.2) rotate(10deg);
+  }
+}
+
+.feature-text {
+  flex: 1 1 340px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fcfcfc;
+  text-align: center;
+  margin-left: 0px;
+}
+
+.feature-text h2 {
+  font-size: 45px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+  text-align: center;
+}
+
+.feature-text p {
+  font-size: 1.1rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* Cards */
+.cards-section {
+  width: 100%;
+  max-width: 1100px;
+  margin: 60px auto 40px auto;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 0 24px;
+}
+
+.info-card {
+  background: rgba(10, 22, 40, 0.82);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(40, 221, 193, 0.10);
+  padding: 32px 24px;
+  min-width: 220px;
+  max-width: 320px;
+  flex: 1 1 220px;
+  text-align: center;
+  color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-card h3 {
+  color: #28ddc1;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.info-card p {
+  color: #cfd8dc;
+  font-size: 1rem;
+}
+
+.info-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(40, 221, 193, 0.18);
+}
+
+/* Astronauta 2 */
+.astro2-container {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-width: 200px;
+  height: 100%;
+  position: relative;
+  margin-top: -35px;
+}
+
+.astronauta2-img {
+  width: 320px;
+  max-width: 40vw;
+  height: auto;
+  border-radius: 24px;
+  object-fit: contain;
+  margin-top: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 10;
+  margin-top: -35px;
+}
+
+/* Animación flotante para astronauta2 */
+.astronauta-float {
+  animation: astronauta2-flotar-loop 10s;
+  animation-timing-function: ease-in-out
+
+}
+
+@keyframes astronauta2-flotar-loop {
+  0% {
+    transform: translateX(0) translateY(0) scale(1) rotate(-10deg);
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 0;
+    /* Just before leaving left edge */
+    transform: translateX(-110vw) translateY(-40px) scale(0.8) rotate(-10deg);
+  }
+  50% {
+    opacity: 0;
+    /* Instantly jump to right edge, invisible */
+    transform: translateX(110vw) translateY(-40px) scale(0.8) rotate(-10deg);
+  }
+  51% {
+    opacity: 1;
+    /* Start appearing from right edge */
+    transform: translateX(110vw) translateY(-40px) scale(0.8) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1) rotate(-10deg);
+  }
+}
+
+/* Responsive: igual que el astronauta principal */
+@media (max-width: 900px) {
+  .astro2-container {
+    justify-content: center;
+    margin-top: 20px;
+    margin-right: 0;
+  }
+  .astronauta2-img {
+    width: 200px;
+    max-width: 60vw;
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 600px) {
-  .section-1 h1 {
-    font-size: 3rem;
+  .astronauta2-img {
+    width: 120px;
+    max-width: 80vw;
+    margin-top: 10px;
   }
+}
 
-  .section-1 h2 {
-    font-size: 1.2rem;
+/* Tablets */
+@media (max-width: 900px) {
+  .banner-section header {
+    padding: 32px 16px;
+    border-radius: 24px;
+    max-width: 95vw;
+  }
+  .banner-section h1 {
+    font-size: 2rem;
+  }
+  .feature-section {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 8vw;
+    align-items: center;
+    margin-top: -40px;
+  }
+  .feature-img-container {
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .feature-img {
+    width: 200px;
+    max-width: 60vw;
+    margin-top: -30px;
+  }
+  .feature-text {
+    align-items: center;
+    margin-left: 0;
+  }
+  .feature-text h2 {
+    font-size: 1.3rem;
+  }
+  .cards-section {
+    gap: 18px;
+    padding: 0 8vw;
+  }
+}
+
+/* iPhone 16 Pro & small screens */
+@media (max-width: 600px) {
+  .homepage-container {
+    padding: 0 2px;
+  }
+  .banner-section {
+    margin-top: 18px;
+  }
+  .banner-section header {
+    padding: 18px 6px;
+    border-radius: 14px;
+    gap: 14px;
+  }
+  .banner-section h1 {
+    font-size: 1.3rem;
+  }
+  .banner-section p {
+    font-size: 0.98rem;
+    max-width: 98vw;
+  }
+  .banner-section button {
+    font-size: 0.98rem;
+    padding: 10px 0;
+    width: 98vw;
+    max-width: 98vw;
+  }
+  .feature-section {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 2vw;
+    margin-top: -30px;
+    align-items: center;
+  }
+  .feature-img-container {
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .feature-img {
+    width: 120px;
+    max-width: 80vw;
+    margin-top: -18px;
+  }
+  .feature-text {
+    align-items: center;
+    margin-left: 0;
+  }
+  .feature-text h2 {
+    font-size: 1.1rem;
+  }
+  .feature-text p {
+    font-size: 0.95rem;
+  }
+  .cards-section {
+    gap: 10px;
+    padding: 0 2vw;
+    margin: 24px auto 20px auto;
+  }
+  .info-card {
+    padding: 18px 8px;
+    min-width: 120px;
+    max-width: 98vw;
+    border-radius: 12px;
+    gap: 8px;
+  }
+  .info-card h3 {
+    font-size: 1.05rem;
+  }
+  .info-card p {
+    font-size: 0.95rem;
   }
 }

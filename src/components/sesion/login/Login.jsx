@@ -1,19 +1,20 @@
 import { useAuth } from "../../../authContext/authContext.jsx";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
+import BackLink from "../../backLink/BackLink.jsx";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 const Login = () => {
-  const [showEmailForm, setShowEmailForm] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { login, userData } = useAuth();
+  const navigate = useNavigate();
 
   if (userData) {
     return <Navigate to="/profile" replace />;
@@ -49,7 +50,8 @@ const Login = () => {
     }
   };
 
-  const handleEmailLogin = async () => {
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError(null);
 
@@ -79,64 +81,63 @@ const Login = () => {
     }
   };
 
+  const goToInicio = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <img src="src/assets/iconWeb.png" alt="Logo" className="login-icon" />
-
-        <GoogleLogin
-          onSuccess={handleGoogleLogin}
-          onError={() => {
-            console.log("Fallo en el login");
-          }}
-          size="large"
-          width="100%"
-        ></GoogleLogin>
-        <button
-          className="email-button"
-          onClick={() => setShowEmailForm(!showEmailForm)}
-          disabled={loading}
-        >
-          {showEmailForm ? "Ocultar formulario" : "Ingresar con Email"}
-        </button>
-
-        {showEmailForm && (
-          <div className="email-form">
-            <input
-              type="text"
-              placeholder="Correo electrónico"
-              className="email-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              disabled={loading}
-            />
-            <input
-              type="password"
-              placeholder="Contraseña"
-              className="password-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading}
-            />
-
-            {error && <div className="error-message">{error}</div>}
-
-            <div className="form-footer">
-              <button
-                className="login-button"
-                onClick={handleEmailLogin}
-                disabled={loading || !username || !password}
-              >
-                {loading ? "Cargando..." : "Iniciar sesión"}
-              </button>
-              <div className="footer-links">
-                <a href="#" className="forgot-password-link">
-                  Olvidé mi contraseña
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+    <div className="login-bg">
+      <BackLink title="Volver al Inicio" onClick={goToInicio} />
+      <div className="login-card">
+        <h2 className="login-title">Iniciar Sesión</h2>
+        <form className="login-form" onSubmit={handleEmailLogin}>
+          <label className="login-label" htmlFor="email">
+            Correo electrónico
+          </label>
+          <input
+            id="email"
+            type="text"
+            className="login-input"
+            placeholder="Escribi tu correo aquí."
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={loading}
+            autoComplete="username"
+          />
+          <label className="login-label" htmlFor="password">
+            Contraseña
+          </label>
+          <input
+            id="password"
+            type="password"
+            className="login-input"
+            placeholder="Escribi tu contraseña aquí."
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
+            autoComplete="current-password"
+          />
+          {error && <div className="login-error">{error}</div>}
+          <button
+            className="login-btn"
+            type="submit"
+            disabled={loading || !username || !password}
+          >
+            {loading ? "Cargando..." : "Iniciar Sesión"}
+          </button>
+        </form>
+        <div className="login-google-btn">
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={() => {
+              console.log("Fallo en el login");
+            }}
+            width="100%"
+            text="signin_with"
+            shape="rectangular"
+            locale="es"
+          />
+        </div>
       </div>
     </div>
   );
