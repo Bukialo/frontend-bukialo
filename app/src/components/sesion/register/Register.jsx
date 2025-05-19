@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import BackLink from "../../backLink/BackLink.jsx";
+import ModalCustom from "../../moddals/modal.jsx";
+import astroCheck from "../../../assets/astronauta-profile.png";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -13,6 +15,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -38,10 +41,7 @@ const Register = () => {
       const response = await axios.post(`${baseUrl}/auth/register`, formData);
 
       if (response.status === 201) {
-        alert("Usuario registrado exitosamente");
-        navigate("/login");
-        window.location.reload();
-
+        setModalOpen(true);
         setFormData({
           first_name: "",
           last_name: "",
@@ -59,9 +59,18 @@ const Register = () => {
     navigate("/");
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    navigate("/login");
+  };
+
   return (
     <div className="register-container">
-      <BackLink className="back-link" title="Volver al Inicio" onClick={goToInicio} />
+      <BackLink
+        className="back-link"
+        title="Volver al Inicio"
+        onClick={goToInicio}
+      />
       <div className="register-box">
         <h1 className="register-title">Registrarme</h1>
         <div className="register-form">
@@ -106,6 +115,13 @@ const Register = () => {
           <p>Registrarme</p>
         </button>
       </div>
+      <ModalCustom
+        open={modalOpen}
+        onClose={handleCloseModal}
+        title="¡Registro exitoso!"
+        image={astroCheck}
+        message="Redirigiendo a Inicio de Sesión...."
+      />
     </div>
   );
 };
