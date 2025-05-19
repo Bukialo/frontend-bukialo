@@ -39,7 +39,7 @@ jobs:
           ref: develop
 
       - name: Move your files to a temporary dev directory
-        if: github.ref == 'refs/heads/develop'AWS_ACCESS_KEY_ID_ID
+        if: github.ref == 'refs/heads/develop'
         run: |
           mkdir -p ../temp-dev
           mv * ../temp-dev/
@@ -47,7 +47,7 @@ jobs:
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
-          repository: asuser-dev/infra-web-asuser-tf
+          repository: Bookealo/s3-static-web-aws-infra
           token: ${{ secrets.GH_PAT }}
           ref: main
 
@@ -118,9 +118,9 @@ jobs:
         run: |
           mkdir -p ~/.aws
           echo "[default]" > ~/.aws/credentials
-          echo "AWS_ACCESS_KEY_ID_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
           echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
-          aws configure set AWS_ACCESS_KEY_ID_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set AWS_ACCESS_KEY_ID ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region us-east-1
 
@@ -148,7 +148,7 @@ jobs:
           #terraform plan
           terraform apply -auto-approve
         env:
-          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform init and apply PROD
@@ -160,7 +160,7 @@ jobs:
             -target=aws_s3_bucket.bucket_web \
             -target=aws_s3_bucket_object.site_files
         env:
-          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform init and apply DEV
@@ -172,7 +172,7 @@ jobs:
             -target=aws_s3_bucket.bucket_web_dev \
             -target=aws_s3_bucket_object.site_files_dev
         env:
-          AWS_ACCESS_KEY_ID_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
 
       - name: Clean cloufront cache
