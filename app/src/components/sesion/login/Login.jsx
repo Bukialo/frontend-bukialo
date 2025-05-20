@@ -5,6 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import BackLink from "../../backLink/BackLink.jsx";
+import ModalCustom from "../../moddals/modal.jsx";
+import astroError from "../../../assets/astronauta-error.png"; // Usa tu imagen de error
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -13,6 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const { login, userData } = useAuth();
   const navigate = useNavigate();
 
@@ -76,6 +79,7 @@ const Login = () => {
     } catch (error) {
       console.error("Error en el login:", error);
       setError("Error en el login. Por favor verifica tus credenciales.");
+      setModalOpen(true);
     } finally {
       setLoading(false);
     }
@@ -83,6 +87,10 @@ const Login = () => {
 
   const goToInicio = () => {
     navigate("/");
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -139,6 +147,13 @@ const Login = () => {
           />
         </div>
       </div>
+      <ModalCustom
+        open={modalOpen}
+        onClose={handleCloseModal}
+        title="¡Oops!"
+        image={astroError}
+        message="El correo o la contraseña no son correctos."
+      />
     </div>
   );
 };
