@@ -2,7 +2,7 @@ import "./HomePage.css";
 import React, { useRef } from "react";
 import astronauta from "../../assets/astronauta.png";
 import astronauta2 from "../../assets/astronauta 2.png";
-import CardList from "../../components/cads/Cards";
+import CardList from "../../components/cards/Cards";
 
 const HomePage = () => {
   const astroRef = useRef(null);
