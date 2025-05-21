@@ -90,6 +90,7 @@ jobs:
             pwd
             cd ../temp/app
             npm install
+            echo "VITE_API_URL=${{ vars.VITE_API_URL_PROD }}" > .env
             npm run build
             cd dist
             ls ../../../
