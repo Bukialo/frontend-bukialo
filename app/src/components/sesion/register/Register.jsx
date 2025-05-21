@@ -10,8 +10,8 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
+    lastname: "",
     email: "",
     password: "",
   });
@@ -29,8 +29,8 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       if (
-        !formData.first_name ||
-        !formData.last_name ||
+        !formData.name ||
+        !formData.lastname ||
         !formData.email ||
         !formData.password
       ) {
@@ -43,8 +43,8 @@ const Register = () => {
       if (response.status === 201) {
         setModalOpen(true);
         setFormData({
-          first_name: "",
-          last_name: "",
+          name: "",
+          lastname: "",
           email: "",
           password: "",
         });
@@ -77,19 +77,19 @@ const Register = () => {
           <label className="register-label">Nombre</label>
           <input
             type="text"
-            name="first_name"
+            name="name"
             placeholder="Escribi tu nombre aquí"
             className="register-input"
-            value={formData.first_name}
+            value={formData.name}
             onChange={handleInputChange}
           />
           <label className="register-label">Apellido</label>
           <input
             type="text"
-            name="last_name"
+            name="lastname"
             placeholder="Escribi tu apellido aquí"
             className="register-input"
-            value={formData.last_name}
+            value={formData.lastname}
             onChange={handleInputChange}
           />
           <label className="register-label">Correo Electrónico</label>
