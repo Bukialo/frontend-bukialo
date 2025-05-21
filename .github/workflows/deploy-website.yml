@@ -103,6 +103,7 @@ jobs:
             pwd
             cd ../temp-dev/app
             npm install
+            echo "VITE_API_URL=${{ vars.VITE_API_URL_DEV }}" >> $GITHUB_ENV
             npm run build
             cd dist
             ls ../../../
