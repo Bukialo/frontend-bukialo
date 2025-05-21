@@ -37,7 +37,7 @@ const Register = () => {
         alert("Todos los campos son obligatorios");
         return;
       }
-      console.log(baseUrl)
+      console.log(`base url: ${baseUrl}`)
       const response = await axios.post(`${baseUrl}/auth/register`, formData);
 
       if (response.status === 201) {
