@@ -14,11 +14,7 @@ const plans = [
       price: 10000,
       label: "ARS/mes",
     },
-    features: [
-      "Acceso básico.",
-      "Soporte estándar.",
-      "1 usuario.",
-    ],
+    features: ["Acceso básico.", "Soporte estándar.", "1 usuario."],
   },
   {
     key: "premium",
@@ -61,7 +57,6 @@ const plans = [
 ];
 
 const CardsProfile = () => {
-  // Estado para el plan y periodo seleccionado
   const [selected, setSelected] = useState({
     plan: plans[0].key,
     period: "anual",
@@ -82,7 +77,9 @@ const CardsProfile = () => {
                 <input
                   type="radio"
                   name={`plan-profile-${plan.key}`}
-                  checked={selected.plan === plan.key && selected.period === "anual"}
+                  checked={
+                    selected.plan === plan.key && selected.period === "anual"
+                  }
                   onChange={() => handleSelect(plan.key, "anual")}
                 />
                 <span className="card-profile-custom-radio anual"></span>
@@ -91,9 +88,13 @@ const CardsProfile = () => {
               <div className="card-profile-price-group">
                 <span className="card-profile-price-bold">
                   {plan.anual.price.toLocaleString()}{" "}
-                  <span className="card-profile-currency">{plan.anual.label}</span>
+                  <span className="card-profile-currency">
+                    {plan.anual.label}
+                  </span>
                 </span>
-                <span className="card-profile-discount">{plan.anual.discount}</span>
+                <span className="card-profile-discount">
+                  {plan.anual.discount}
+                </span>
               </div>
             </div>
             <div className="card-profile-toggle">
@@ -101,7 +102,9 @@ const CardsProfile = () => {
                 <input
                   type="radio"
                   name={`plan-profile-${plan.key}`}
-                  checked={selected.plan === plan.key && selected.period === "mensual"}
+                  checked={
+                    selected.plan === plan.key && selected.period === "mensual"
+                  }
                   onChange={() => handleSelect(plan.key, "mensual")}
                 />
                 <span className="card-profile-custom-radio mensual"></span>
@@ -110,7 +113,9 @@ const CardsProfile = () => {
               <div className="card-profile-price-group">
                 <span className="card-profile-price-bold card-profile-price-mes">
                   {plan.mensual.price.toLocaleString()}{" "}
-                  <span className="card-profile-currency">{plan.mensual.label}</span>
+                  <span className="card-profile-currency">
+                    {plan.mensual.label}
+                  </span>
                 </span>
               </div>
             </div>

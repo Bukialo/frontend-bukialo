@@ -105,7 +105,6 @@ const Profile = () => {
       {!isApproved && (
         <>
           <h2>Selecciona un plan para activar tu cuenta</h2>
-          {/* Cards de planes */}
           <CardsProfile
             onSelectPlan={handleSelectPlan}
             selectedPlan={selectedPlan}
