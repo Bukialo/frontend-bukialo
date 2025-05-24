@@ -3,16 +3,19 @@ import axios from "axios";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import BackLink from "../../backLink/BackLink.jsx";
+import ModalCustom from "../../moddals/modal.jsx";
+import astroCheck from "../../../assets/astronauta-profile.png";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
+    lastname: "",
     email: "",
     password: "",
   });
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -26,8 +29,8 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       if (
-        !formData.first_name ||
-        !formData.last_name ||
+        !formData.name ||
+        !formData.lastname ||
         !formData.email ||
         !formData.password
       ) {
@@ -35,16 +38,17 @@ const Register = () => {
         return;
       }
 
-      const response = await axios.post(`${baseUrl}/auth/register`, formData);
+      const response = await axios.post(`${baseUrl}/auth/register`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status === 201) {
-        alert("Usuario registrado exitosamente");
-        navigate("/login");
-        window.location.reload();
-
+        setModalOpen(true);
         setFormData({
-          first_name: "",
-          last_name: "",
+          name: "",
+          lastname: "",
           email: "",
           password: "",
         });
@@ -59,28 +63,37 @@ const Register = () => {
     navigate("/");
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    navigate("/login");
+  };
+
   return (
     <div className="register-container">
-      <BackLink className="back-link" title="Volver al Inicio" onClick={goToInicio} />
+      <BackLink
+        className="back-link"
+        title="Volver al Inicio"
+        onClick={goToInicio}
+      />
       <div className="register-box">
         <h1 className="register-title">Registrarme</h1>
         <div className="register-form">
           <label className="register-label">Nombre</label>
           <input
             type="text"
-            name="first_name"
+            name="name"
             placeholder="Escribi tu nombre aquí"
             className="register-input"
-            value={formData.first_name}
+            value={formData.name}
             onChange={handleInputChange}
           />
           <label className="register-label">Apellido</label>
           <input
             type="text"
-            name="last_name"
+            name="lastname"
             placeholder="Escribi tu apellido aquí"
             className="register-input"
-            value={formData.last_name}
+            value={formData.lastname}
             onChange={handleInputChange}
           />
           <label className="register-label">Correo Electrónico</label>
@@ -106,6 +119,13 @@ const Register = () => {
           <p>Registrarme</p>
         </button>
       </div>
+      <ModalCustom
+        open={modalOpen}
+        onClose={handleCloseModal}
+        title="¡Registro exitoso!"
+        image={astroCheck}
+        message="Redirigiendo a Inicio de Sesión...."
+      />
     </div>
   );
 };

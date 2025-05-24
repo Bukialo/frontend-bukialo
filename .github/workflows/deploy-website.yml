@@ -5,12 +5,12 @@ on:
   # Runs on pushes targeting the default branch
   workflow_dispatch:
   push:
-    branches: 
+    branches:
       - main
       - develop
     paths:
-      - 'app/**' 
-      - '!.github/**'
+      - "app/**"
+      - "!.github/**"
 
 jobs:
   terraform:
@@ -81,35 +81,36 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
+          node-version: "20"
 
       - name: Buld y mover todos los files prod
         if: github.ref == 'refs/heads/main'
         run: |
-            ls
-            pwd
-            cd ../temp/app
-            npm install
-            echo "VITE_API_URL=${{ vars.VITE_API_URL_PROD }}" > .env
-            npm run build
-            cd dist
-            ls ../../../
-            mkdir ../../../$REPO/aws-s3/web
-            mv * ../../../$REPO/aws-s3/web/
+          ls
+          pwd
+          cd ../temp/app
+          npm install
+          npm run build
+          cd dist
+          ls ../../../
+          mkdir ../../../$REPO/aws-s3/web
+          mv * ../../../$REPO/aws-s3/web/
 
       - name: Buld y mover todos los files dev
         if: github.ref == 'refs/heads/develop'
         run: |
-            ls
-            pwd
-            cd ../temp-dev/app
-            npm install
-            echo "VITE_API_URL=${{ vars.VITE_API_URL_DEV }}" > .env
-            npm run build
-            cd dist
-            ls ../../../
-            mkdir ../../../$REPO/aws-s3/web-dev
-            mv * ../../../$REPO/aws-s3/web-dev/
+          ls
+          pwd
+          cd ../temp-dev/app
+          npm install
+          echo "VITE_API_URL=${{ vars.VITE_API_URL_DEV }}" >> $GITHUB_ENV
+          echo "base url${{ vars.VITE_API_URL_DEV }}"
+          echo "VITE_API_URL=${{ vars.VITE_API_URL_DEV }}" > .env
+          npm run build
+          cd dist
+          ls ../../../
+          mkdir ../../../$REPO/aws-s3/web-dev
+          mv * ../../../$REPO/aws-s3/web-dev/
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
@@ -175,7 +176,7 @@ jobs:
             -target=aws_s3_bucket_object.site_files_dev
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Clean cloufront cache
         if: github.ref == 'refs/heads/main'

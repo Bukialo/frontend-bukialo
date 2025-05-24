@@ -3,7 +3,7 @@ import "./Profile.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useAuth } from "../../authContext/authContext.jsx";
 import axios from "axios";
-import CardList from "../../components/cads/Cards.jsx";
+import CardsProfile from "../../components/cardsProfile/CardsProfile.jsx";
 
 initMercadoPago("TEST-717b6537-8d42-49bc-b447-0b6a364065ee", {
   locale: "es-AR",
@@ -82,7 +82,9 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-card">
-        <h2 className="profile-title">Hola {userData.full_name || "Usuario"}</h2>
+        <h2 className="profile-title">
+          Hola {userData.full_name || "Usuario"}
+        </h2>
         <div className="profile-info">
           <p>
             Estado de la cuenta:{" "}
@@ -103,8 +105,7 @@ const Profile = () => {
       {!isApproved && (
         <>
           <h2>Selecciona un plan para activar tu cuenta</h2>
-          {/* Cards de planes */}
-          <CardList
+          <CardsProfile
             onSelectPlan={handleSelectPlan}
             selectedPlan={selectedPlan}
           />
