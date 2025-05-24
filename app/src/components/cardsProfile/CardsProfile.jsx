@@ -56,20 +56,44 @@ const plans = [
   },
 ];
 
-const CardsProfile = () => {
+const CardsProfile = ({ onSelectPlan, selectedPlan }) => {
   const [selected, setSelected] = useState({
     plan: plans[0].key,
     period: "anual",
   });
 
   const handleSelect = (planKey, period) => {
-    setSelected({ plan: planKey, period });
+    const newSelection = { plan: planKey, period };
+    setSelected(newSelection);
+
+    // Encuentra el plan seleccionado en el array de planes
+    const selectedPlanObj = plans.find((plan) => plan.key === planKey);
+
+    if (selectedPlanObj) {
+      // Llama a la función del padre con la información completa del plan
+      onSelectPlan({
+        type: selectedPlanObj.title,
+        price:
+          period === "anual"
+            ? selectedPlanObj.anual.price
+            : selectedPlanObj.mensual.price,
+        backendValue: selectedPlanObj.backendValue || selectedPlanObj.key,
+        period: period,
+      });
+    }
   };
 
   return (
     <div className="cards-profile-section cards-profile-multi">
       {plans.map((plan) => (
-        <div className="card-profile-gradient" key={plan.key}>
+        <div
+          className={`card-profile-gradient ${
+            selectedPlan?.backendValue === (plan.backendValue || plan.key)
+              ? "selected"
+              : ""
+          }`}
+          key={plan.key}
+        >
           <h3 className="card-profile-title">{plan.title}</h3>
           <div className="card-profile-content">
             <div className="card-profile-toggle">
@@ -129,7 +153,12 @@ const CardsProfile = () => {
               ))}
             </ul>
           </div>
-          <button className="card-profile-btn">Obtener plan</button>
+          <button
+            className="card-profile-btn"
+            onClick={() => handleSelect(plan.key, selected.period)}
+          >
+            Obtener plan
+          </button>
         </div>
       ))}
     </div>
