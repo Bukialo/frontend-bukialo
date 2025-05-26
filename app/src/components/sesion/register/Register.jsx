@@ -37,8 +37,12 @@ const Register = () => {
         alert("Todos los campos son obligatorios");
         return;
       }
-      console.log(`base url: ${baseUrl}`)
-      const response = await axios.post(`${baseUrl}/auth/register`, formData);
+
+      const response = await axios.post(`${baseUrl}/auth/register`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status === 201) {
         setModalOpen(true);

@@ -1,5 +1,5 @@
 import "./HomePage.css";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import astronauta from "../../assets/astronauta.png";
 import astronauta2 from "../../assets/astronauta 2.png";
 import CardList from "../../components/cards/Cards";
@@ -8,13 +8,12 @@ const HomePage = () => {
   const astroRef = useRef(null);
   const astro1Ref = useRef(null);
 
-  // Animación para el astronauta de abajo
   const handleAstro2Click = () => {
     if (astroRef.current) {
       astroRef.current.classList.add("astronauta-float");
       setTimeout(() => {
         astroRef.current.classList.remove("astronauta-float");
-      }, 4000); // Duración igual a la animación
+      }, 4000);
     }
   };
 
