@@ -5,7 +5,7 @@ import { useAuth } from "../../authContext/authContext.jsx";
 import axios from "axios";
 import CardsProfile from "../../components/cardsProfile/CardsProfile.jsx";
 
-initMercadoPago("TEST-717b6537-8d42-49bc-b447-0b6a364065ee", {
+initMercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY, {
   locale: "es-AR",
 });
 
