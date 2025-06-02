@@ -46,7 +46,7 @@ const Profile = () => {
     console.log(typeof selectedPlan.backendValue);
     try {
       const response = await axios.post(
-        "http://localhost:8000/payments/mp",
+        `${import.meta.env.VITE_API_URL}/payments/mp`,
         {
           planType: selectedPlan.backendValue,
         },
