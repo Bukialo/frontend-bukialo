@@ -9,7 +9,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className="welcome-box">
         <h1 className="welcome-title">
-          Bienvenido {userData.full_name || "Usuario"}
+          Bienvenido {userData.name || "Usuario"}
         </h1>
         <p className="subtitle">
           Te damos la bienvenida a Bukialo, tu asistente inteligente de gestión
