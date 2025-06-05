@@ -58,6 +58,11 @@ const HomePage = () => {
             onClick={handleAstro1Click}
           />
         </div>
+        
+      </section>
+
+      {/* Cards */}
+      <div className="cards-astro2-wrapper">
         <div className="feature-text">
           <h2>
             <span className="feature-title-highlight">
@@ -65,10 +70,6 @@ const HomePage = () => {
             </span>
           </h2>
         </div>
-      </section>
-
-      {/* Cards */}
-      <div className="cards-astro2-wrapper">
         <CardList />
         <div className="astro2-container">
           <img
