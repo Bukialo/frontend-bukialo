@@ -16,7 +16,7 @@
   line-height: 1.2;
   letter-spacing: 0px;
   text-align: center;
-  max-width: 1100px; /* antes 900px */
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -99,7 +99,7 @@
 }
 
 .feature-img-container {
-  flex: 0 0 320px;
+  flex: 0 0 420px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -108,8 +108,8 @@
 }
 
 .feature-img {
-  width: 320px;
-  max-width: 40vw;
+  width: 420px;
+  max-width: 60vw;
   height: auto;
   border-radius: 24px;
   box-shadow: none;
@@ -209,7 +209,7 @@
 
 /* Astronauta 2 */
 .astro2-container {
-  flex: 0 0 320px;
+  flex: 0 0 420px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -220,8 +220,8 @@
 }
 
 .astronauta2-img {
-  width: 320px;
-  max-width: 40vw;
+  width: 420px;
+  max-width: 60vw;
   height: auto;
   border-radius: 24px;
   object-fit: contain;
@@ -237,7 +237,6 @@
 .astronauta-float {
   animation: astronauta2-flotar-loop 10s;
   animation-timing-function: ease-in-out
-
 }
 
 @keyframes astronauta2-flotar-loop {
@@ -250,17 +249,14 @@
   }
   49% {
     opacity: 0;
-    /* Just before leaving left edge */
     transform: translateX(-110vw) translateY(-40px) scale(0.8) rotate(-10deg);
   }
   50% {
     opacity: 0;
-    /* Instantly jump to right edge, invisible */
     transform: translateX(110vw) translateY(-40px) scale(0.8) rotate(-10deg);
   }
   51% {
     opacity: 1;
-    /* Start appearing from right edge */
     transform: translateX(110vw) translateY(-40px) scale(0.8) rotate(-10deg);
   }
   100% {
@@ -269,25 +265,21 @@
   }
 }
 
-/* Responsive: igual que el astronauta principal */
-@media (max-width: 900px) {
+/* Tablets */
+@media (max-width: 1100px) {
+  .feature-section,
+  .cards-section {
+    max-width: 98vw;
+    padding: 0 2vw;
+  }
+  .feature-img-container,
   .astro2-container {
-    justify-content: center;
-    margin-top: 20px;
-    margin-right: 0;
+    flex: 0 0 320px;
   }
+  .feature-img,
   .astronauta2-img {
-    width: 200px;
-    max-width: 60vw;
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 600px) {
-  .astronauta2-img {
-    width: 120px;
+    width: 320px;
     max-width: 80vw;
-    margin-top: 10px;
   }
 }
 
@@ -307,24 +299,39 @@
     padding: 0 8vw;
     align-items: center;
     margin-top: -40px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: unset !important;
   }
-  .feature-img-container {
+  .feature-img-container,
+  .astro2-container {
     justify-content: center;
     align-items: flex-start;
     width: 100%;
     margin-bottom: 0;
+    flex: 0 0 auto;
   }
-  .feature-img {
-    width: 200px;
-    max-width: 60vw;
-    margin-top: -30px;
+  .feature-img,
+  .astronauta2-img {
+    width: 260px;
+    max-width: 90vw;
   }
   .feature-text {
     align-items: center;
     margin-left: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
   }
   .feature-text h2 {
-    font-size: 1.3rem;
+    font-size: 2.3rem;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .cards-section {
     gap: 18px;
@@ -332,7 +339,7 @@
   }
 }
 
-/* iPhone 16 Pro & small screens */
+/* iPhone & small screens */
 @media (max-width: 600px) {
   .homepage-container {
     padding: 0 2px;
@@ -364,24 +371,40 @@
     padding: 0 2vw;
     margin-top: -30px;
     align-items: center;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: unset !important;
   }
-  .feature-img-container {
+  .feature-img-container,
+  .astro2-container {
     justify-content: center;
     align-items: flex-start;
     width: 100%;
     margin-bottom: 0;
+    flex: 0 0 auto;
   }
-  .feature-img {
-    width: 120px;
-    max-width: 80vw;
-    margin-top: -18px;
+  .feature-img,
+  .astronauta2-img {
+    width: 90vw;
+    max-width: 98vw;
+    margin-top: -10px;
   }
   .feature-text {
     align-items: center;
     margin-left: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
   }
   .feature-text h2 {
     font-size: 1.1rem;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .feature-text p {
     font-size: 0.95rem;
@@ -403,5 +426,44 @@
   }
   .info-card p {
     font-size: 0.95rem;
+  }
+}
+
+/* iPhone 16 Pro & very small screens */
+@media (max-width: 430px) {
+  .banner-section header {
+    padding: 10px 2px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+  .banner-section h1 {
+    font-size: 1.05rem;
+  }
+  .feature-img,
+  .astronauta2-img {
+    width: 98vw;
+    max-width: 99vw;
+    margin-top: 0;
+  }
+  .feature-text h2 {
+    font-size: 1rem;
+  }
+  .cards-section {
+    gap: 6px;
+    padding: 0 1vw;
+    margin: 14px auto 10px auto;
+  }
+  .info-card {
+    padding: 10px 2px;
+    min-width: 80px;
+    max-width: 99vw;
+    border-radius: 8px;
+    gap: 4px;
+  }
+  .info-card h3 {
+    font-size: 0.98rem;
+  }
+  .info-card p {
+    font-size: 0.9rem;
   }
 }
