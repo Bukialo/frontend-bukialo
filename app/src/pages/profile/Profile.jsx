@@ -5,7 +5,7 @@ import { useAuth } from "../../authContext/authContext.jsx";
 import axios from "axios";
 import CardsProfile from "../../components/cardsProfile/CardsProfile.jsx";
 
-initMercadoPago("TEST-717b6537-8d42-49bc-b447-0b6a364065ee", {
+initMercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY, {
   locale: "es-AR",
 });
 
@@ -25,7 +25,6 @@ const Profile = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showWallet, setShowWallet] = useState(false);
 
-  // Recibe el plan seleccionado desde CardList
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
     setShowWallet(false);
@@ -44,9 +43,10 @@ const Profile = () => {
     }
 
     setLoading(true);
+    console.log(typeof selectedPlan.backendValue);
     try {
       const response = await axios.post(
-        "http://localhost:8000/payments/mp",
+        `${import.meta.env.VITE_API_URL}/payments/mp`,
         {
           planType: selectedPlan.backendValue,
         },
@@ -105,7 +105,6 @@ const Profile = () => {
       {!isApproved && (
         <>
           <h2>Selecciona un plan para activar tu cuenta</h2>
-          {/* Cards de planes */}
           <CardsProfile
             onSelectPlan={handleSelectPlan}
             selectedPlan={selectedPlan}
@@ -116,7 +115,8 @@ const Profile = () => {
               <div className="selected-plan-info">
                 <p>
                   Plan seleccionado: <strong>{selectedPlan.type}</strong> - $
-                  {selectedPlan.price?.toFixed(2)}/mes
+                  {selectedPlan.price?.toLocaleString("es-AR")} (
+                  {selectedPlan.period})
                 </p>
                 <button
                   className="buy-button"

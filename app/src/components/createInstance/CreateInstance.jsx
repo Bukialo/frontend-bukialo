@@ -97,6 +97,8 @@ const CreateInstance = () => {
         }
       );
 
+      console.log(response);
+
       if (response.data?.qrcode?.base64) {
         setQrCode(response.data.qrcode.base64);
         setPairingCode(response.data.qrcode.pairingCode);
@@ -113,6 +115,14 @@ const CreateInstance = () => {
     }
   };
 
+  const handleQrScanned = () => {
+    navigate("/dashboard");
+  };
+
+  const handleNewQr = () => {
+    setShowForm(true);
+  };
+
   if (checkingInstance) {
     return <div className="loading">Verificando instancia...</div>;
   }
@@ -120,9 +130,7 @@ const CreateInstance = () => {
   return (
     <div className="instance-container">
       <div className="instance-header">
-        <h2 className="instance-title">
-          ¡Hola {userData.full_name || "Usuario"}!{" "}
-        </h2>
+        <h2 className="instance-title">¡Hola {userData.name || "Usuario"}! </h2>
         <p>
           Primero, completá el nombre de tu empresa y el número de teléfono que
           usarás con WhatsApp.
@@ -175,34 +183,8 @@ const CreateInstance = () => {
           )}
         </form>
       ) : (
-        <div className="instance-container">
-      <h2 className="qr-main-title">¡Último paso! Conectá tu asistente.</h2>
-      <p className="qr-main-subtitle">
-        Seguí estos 4 pasos para conectar tu asistente.
-      </p>
-      <div className="qr-container">
-        <div className="qr-steps">
-          <ol className="qr-steps-list">
-            <li>1. Ir a WhatsApp desde tu teléfono.</li>
-            <li>2. Tocar en el Menú (tres puntitos).</li>
-            <li>
-              3. Seleccionar <strong>Dispositivos Vinculados</strong>.
-            </li>
-            <li>
-              4. Elegir <strong>Vincular un Dispositivo</strong> y escanear el código QR.
-            </li>
-          </ol>
-          <div className="qr-actions">
-            <button className="qr-btn-green">Ya escaneé el código QR</button>
-            <button className="qr-btn-outline">Obtener un nuevo código</button>
-          </div>
-          <div className="qr-help">
-            ¿Problemas para escanear el código?
-            <a href="#">Ayuda aquí.</a>
-          </div>
-        </div>
-        <div className="qr-right">
-          <div className="qr-title">Código QR</div>
+        <div className="qr-container">
+          <h3 className="qr-title">Escanea este código QR con WhatsApp</h3>
           <div className="qr-image-container">
             <img
               src={qrCode}
@@ -215,16 +197,21 @@ const CreateInstance = () => {
               Código de emparejamiento: {pairingCode}
             </div>
           )}
+          <p className="qr-instructions">
+            Abre WhatsApp en tu teléfono, toca Menú → Dispositivos vinculados →
+            Vincular un dispositivo y escanea este código QR
+          </p>
+          <QrButtons onScanned={handleQrScanned} onNewQr={handleNewQr} />
         </div>
-      </div>
+      )}
+
       {loading && <div className="loading">Cargando...</div>}
+
       {error && showForm && typeof error !== "string" && (
         <div className="error-container">
           <h3 className="error-title">Error:</h3>
           <pre className="error-content">{JSON.stringify(error, null, 2)}</pre>
         </div>
-      )}
-    </div>
       )}
     </div>
   );

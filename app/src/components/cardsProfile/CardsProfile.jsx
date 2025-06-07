@@ -1,132 +1,208 @@
-import React, { useState } from "react";
 import "./CardsProfile.css";
 
 const plans = [
   {
-    key: "basico",
-    title: "Plan Básico",
-    anual: {
-      price: 60000,
-      label: "ARS/año",
-      discount: "Ahorrá el 50%",
-    },
-    mensual: {
-      price: 10000,
-      label: "ARS/mes",
-    },
+    title: "Plan Basic",
+    pricingOptions: [
+      {
+        key: 1,
+        type: "anual",
+        price: 144000,
+        label: "ARS/año",
+        discount: "Ahorrá el 20%",
+      },
+      {
+        key: 2,
+        type: "semestral",
+        price: 81000,
+        label: "ARS/6 meses",
+        discount: "Ahorrá el 10%",
+      },
+      {
+        key: 3,
+        type: "mensual",
+        price: 15000,
+        label: "ARS/mes",
+      },
+    ],
+    features: ["Acceso básico", "Soporte estándar 9 a 18"],
+  },
+  {
+    title: "Plan Medium",
+    pricingOptions: [
+      {
+        key: 4,
+        type: "anual",
+        price: 288000,
+        label: "ARS/año",
+        discount: "Ahorrá el 20%",
+      },
+      {
+        key: 5,
+        type: "semestral",
+        price: 162000,
+        label: "ARS/6 meses",
+        discount: "Ahorrá el 10%",
+      },
+      {
+        key: 6,
+        type: "mensual",
+        price: 30000,
+        label: "ARS/mes",
+      },
+    ],
     features: [
-      "Acceso básico.",
-      "Soporte estándar.",
-      "1 usuario.",
+      "Soporte estándar 9 a 18",
+      "Recordatorio turnos usuarios",
+      "Confirmación 24 horas antes",
     ],
   },
   {
-    key: "premium",
     title: "Plan Premium",
-    anual: {
-      price: 120000,
-      label: "ARS/año",
-      discount: "Ahorrá el 50%",
-    },
-    mensual: {
-      price: 20000,
-      label: "ARS/mes",
-    },
+    pricingOptions: [
+      {
+        key: 7,
+        type: "anual",
+        price: 432000,
+        label: "ARS/año",
+        discount: "Ahorrá el 20%",
+      },
+      {
+        key: 8,
+        type: "semestral",
+        price: 243000,
+        label: "ARS/6 meses",
+        discount: "Ahorrá el 10%",
+      },
+      {
+        key: 9,
+        type: "mensual",
+        price: 45000,
+        label: "ARS/mes",
+      },
+    ],
     features: [
-      "Acceso completo.",
-      "Soporte prioritario.",
-      "5 usuarios.",
-      "Funciones avanzadas.",
+      "Soporte 24/7",
+      "Recordatorio turnos usuarios",
+      "Confirmación 48 horas antes",
     ],
   },
   {
-    key: "empresarial",
-    title: "Plan Empresarial",
-    anual: {
-      price: 180000,
-      label: "ARS/año",
-      discount: "Ahorrá el 50%",
-    },
-    mensual: {
-      price: 30000,
-      label: "ARS/mes",
-    },
-    features: [
-      "Acceso ilimitado.",
-      "Soporte 24/7.",
-      "Usuarios ilimitados.",
-      "Funciones premium.",
-    ],
+    title: "Plan Enterprise",
+    features: ["Agente IA de acuerdo a tus necesidades"],
+    contactForm: true,
   },
 ];
 
-const CardsProfile = () => {
-  // Estado para el plan y periodo seleccionado
-  const [selected, setSelected] = useState({
-    plan: plans[0].key,
-    period: "anual",
-  });
-
+const CardsProfile = ({ onSelectPlan, selectedPlan }) => {
   const handleSelect = (planKey, period) => {
-    setSelected({ plan: planKey, period });
+    const selectedPlanObj = plans.find((plan) =>
+      plan.pricingOptions?.some((option) => option.key === planKey)
+    );
+
+    if (selectedPlanObj) {
+      const priceData = selectedPlanObj.pricingOptions?.find(
+        (option) => option.key === planKey
+      );
+
+      if (priceData) {
+        onSelectPlan({
+          type: selectedPlanObj.title,
+          price: priceData.price || 0,
+          backendValue: planKey,
+          period: period,
+        });
+      }
+    }
   };
 
   return (
     <div className="cards-profile-section cards-profile-multi">
-      {plans.map((plan) => (
-        <div className="card-profile-gradient" key={plan.key}>
-          <h3 className="card-profile-title">{plan.title}</h3>
-          <div className="card-profile-content">
-            <div className="card-profile-toggle">
-              <label className="card-profile-radio">
-                <input
-                  type="radio"
-                  name={`plan-profile-${plan.key}`}
-                  checked={selected.plan === plan.key && selected.period === "anual"}
-                  onChange={() => handleSelect(plan.key, "anual")}
-                />
-                <span className="card-profile-custom-radio anual"></span>
-                <span className="card-profile-label">Anual</span>
-              </label>
-              <div className="card-profile-price-group">
-                <span className="card-profile-price-bold">
-                  {plan.anual.price.toLocaleString()}{" "}
-                  <span className="card-profile-currency">{plan.anual.label}</span>
-                </span>
-                <span className="card-profile-discount">{plan.anual.discount}</span>
-              </div>
-            </div>
-            <div className="card-profile-toggle">
-              <label className="card-profile-radio">
-                <input
-                  type="radio"
-                  name={`plan-profile-${plan.key}`}
-                  checked={selected.plan === plan.key && selected.period === "mensual"}
-                  onChange={() => handleSelect(plan.key, "mensual")}
-                />
-                <span className="card-profile-custom-radio mensual"></span>
-                <span className="card-profile-label">Mensual</span>
-              </label>
-              <div className="card-profile-price-group">
-                <span className="card-profile-price-bold card-profile-price-mes">
-                  {plan.mensual.price.toLocaleString()}{" "}
-                  <span className="card-profile-currency">{plan.mensual.label}</span>
-                </span>
-              </div>
-            </div>
-            <hr className="card-profile-divider" />
-            <ul className="card-profile-features-list">
-              {plan.features.map((feature, idx) => (
-                <li key={idx}>
-                  <span className="card-profile-checkmark"></span>
-                  {feature}
-                </li>
+      {plans.map((plan) => {
+        const isSelected = plan.pricingOptions?.some(
+          (option) => option.key === selectedPlan?.backendValue
+        );
+
+        return (
+          <div
+            className={`card-profile-gradient ${isSelected ? "selected" : ""}`}
+            key={plan.title}
+          >
+            <h3 className="card-profile-title">{plan.title}</h3>
+            <div className="card-profile-content">
+              {plan.pricingOptions?.map((option) => (
+                <div className="card-profile-toggle" key={option.key}>
+                  <label className="card-profile-radio">
+                    <input
+                      type="radio"
+                      name={`plan-profile-${option.key}`}
+                      checked={
+                        selectedPlan?.backendValue === option.key &&
+                        selectedPlan?.period === option.type
+                      }
+                      onChange={() => handleSelect(option.key, option.type)}
+                    />
+                    <span
+                      className={`card-profile-custom-radio ${option.type}`}
+                    ></span>
+                    <span className="card-profile-label">
+                      {option.type.charAt(0).toUpperCase() +
+                        option.type.slice(1)}
+                    </span>
+                  </label>
+                  <div className="card-profile-price-group">
+                    <span
+                      className={`card-profile-price-bold ${
+                        option.type === "mensual"
+                          ? "card-profile-price-mes"
+                          : ""
+                      }`}
+                    >
+                      {option.price.toLocaleString()}{" "}
+                      <span className="card-profile-currency">
+                        {option.label}
+                      </span>
+                    </span>
+                    {option.discount && (
+                      <span className="card-profile-discount">
+                        {option.discount}
+                      </span>
+                    )}
+                  </div>
+                </div>
               ))}
-            </ul>
+
+              {plan.features && (
+                <>
+                  <hr className="card-profile-divider" />
+                  <ul className="card-profile-features-list">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx}>
+                        <span className="card-profile-checkmark"></span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+            <button
+              className="card-profile-btn"
+              onClick={() => {
+                const anualOption = plan.pricingOptions?.find(
+                  (opt) => opt.type === "anual"
+                );
+                if (anualOption) {
+                  handleSelect(anualOption.key, "anual");
+                }
+              }}
+              disabled={plan.contactForm}
+            >
+              {plan.contactForm ? "Contactar" : "Obtener plan"}
+            </button>
           </div>
-          <button className="card-profile-btn">Obtener plan</button>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
