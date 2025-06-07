@@ -39,7 +39,7 @@
   text-transform: capitalize;
 }
 
-.subtitle{
+.subtitle {
   margin: 0 0 2rem 0;
   color: #dfe6e9;
   font-size: 1.5rem;
@@ -58,7 +58,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.3s, color 0.3s, transform 0.2s;
-  margin: 8px 20px; 
+  margin: 8px 20px;
   box-shadow: 0 2px 8px rgba(40, 221, 193, 0.15);
 }
 
@@ -79,16 +79,69 @@
   }
 }
 
-@media (max-width: 768px) {
+/* Tablets */
+@media (max-width: 900px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
   .welcome-box {
-    padding: 3rem 2rem;
+    padding: 2.5rem 1.2rem;
+    max-width: 98vw;
   }
-
   .welcome-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  .submit-button {
+    width: 90%;
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+}
 
-  .welcome-subtitle {
+/* Mobiles */
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 0.5rem;
+    min-height: 70vh;
+  }
+  .welcome-box {
+    padding: 1.2rem 0.5rem;
+    border-radius: 14px;
+    max-width: 99vw;
+  }
+  .welcome-title {
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .subtitle {
+    font-size: 0.98rem;
+    margin-bottom: 1.2rem;
+  }
+  .submit-button {
+    width: 100%;
+    font-size: 0.98rem;
+    padding: 10px 0;
+    margin: 8px 0;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+  .welcome-box {
+    padding: 0.5rem 0.2rem;
+    border-radius: 8px;
+  }
+  .welcome-title {
+    font-size: 1rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  .submit-button {
+    font-size: 0.9rem;
+    padding: 8px 0;
   }
 }
