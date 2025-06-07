@@ -36,10 +36,33 @@ const HomePage = () => {
           </p>
           <div className="bukialo-logos">
             <Link to="/feedbackAnalize">
-            <img src={bukialoAnalice} alt="Bukialo Analice" style={{ marginTop: "18px", height: "150px", objectFit: "contain", filter: "drop-shadow(0 2px 12px #28ddc1aa)", transition: "transform 0.2s" }} />
+              <img
+                src={bukialoAnalice}
+                alt="Bukialo Analice"
+                style={{
+                  marginTop: "18px",
+                  width: "171px",
+                  height: "150px",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 2px 12px #28ddc1aa)",
+                  transition: "transform 0.2s",
+                }}
+                className="bukialo-crm-logo"
+              />
             </Link>
             <Link to="/reservas">
-              <img src={bukialoReservas} alt="Bukialo Reservas" style={{ marginTop: "18px", height: "150px", objectFit: "contain", filter: "drop-shadow(0 2px 12px #28ddc1aa)", transition: "transform 0.2s" }} />
+              <img
+                src={bukialoReservas}
+                alt="Bukialo Reservas"
+                style={{
+                  marginTop: "18px",
+                  height: "150px",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 2px 12px #28ddc1aa)",
+                  transition: "transform 0.2s",
+                }}
+                className="bukialo-crm-logo"
+              />
             </Link>
             <Link to="/crm">
               <img
