@@ -5,6 +5,7 @@ import astronauta from "../../assets/astronauta.png";
 import bukialoCrm from "../../assets/logo_bukialo.png";
 import bukialoReservas from "../../assets/logo-buk-reservas.png";
 import { Link } from "react-router-dom";
+import bukialoAnalice from "../../assets/logo-feedback-analyze.png";
 
 const HomePage = () => {
   const astro1Ref = useRef(null);
@@ -34,6 +35,9 @@ const HomePage = () => {
             experiencias más inteligentes a tus clientes.
           </p>
           <div className="bukialo-logos">
+            <Link to="/feedbackAnalize">
+            <img src={bukialoAnalice} alt="Bukialo Analice" style={{ marginTop: "18px", height: "150px", objectFit: "contain", filter: "drop-shadow(0 2px 12px #28ddc1aa)", transition: "transform 0.2s" }} />
+            </Link>
             <Link to="/reservas">
               <img src={bukialoReservas} alt="Bukialo Reservas" style={{ marginTop: "18px", height: "150px", objectFit: "contain", filter: "drop-shadow(0 2px 12px #28ddc1aa)", transition: "transform 0.2s" }} />
             </Link>

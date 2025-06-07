@@ -31,7 +31,6 @@
   flex-direction: column;
   gap: 2rem;
   position: relative;
-  overflow: hidden;
 }
 
 .banner-section header::before {
@@ -103,8 +102,32 @@
   justify-content:space-evenly ;
 }
 
-.bukialo-crm-logo{
+.bukialo-crm-logo {
   background-color: #06162d;
+  border-radius: 18px;
+  box-shadow:
+    0 0 16px 4px #28ddc1,
+    0 0 32px 8px #1a8cff66,
+    0 0 48px 12px #00e6ff33;
+  transition: transform 0.9s;
+  animation: neon-latido 2.5s infinite;
+}
+
+@keyframes neon-latido {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 16px 4px #28ddc1,
+      0 0 32px 8px #1a8cff66,
+      0 0 48px 12px #00e6ff33;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 32px 8px #28ddc1,
+      0 0 64px 16px #1a8cffcc,
+      0 0 96px 24px #00e6ffff;
+  }
 }
 
 .banner-section button {
