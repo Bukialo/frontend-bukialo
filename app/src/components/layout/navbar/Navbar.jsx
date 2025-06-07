@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import astronautaProfile from "../../../assets/astronauta-profile.png";
 import "./Navbar.css";
+import logoBuk from "../../../assets/logo-buk.png"; // Asegúrate de que la ruta sea correcta
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -81,13 +82,22 @@ const Navbar = () => {
     <nav className={`navbar-custom ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-content-custom">
         <h1 className="navbar-title">
-          <Link to="/">BUKIALO</Link>
+          <Link to="/">
+            <img
+              src={logoBuk}
+              alt="Bukialo logo"
+              style={{ height: "38px", objectFit: "contain" }}
+            />
+          </Link>
         </h1>
         <div className="navbar-main-action">
           {buttons.map((btn, idx) => {
             if (btn.icon) {
               return (
-                <span key="profile-icon" className="navbar-profile-icon-wrapper">
+                <span
+                  key="profile-icon"
+                  className="navbar-profile-icon-wrapper"
+                >
                   {btn.icon}
                 </span>
               );
@@ -103,7 +113,11 @@ const Navbar = () => {
               </button>
             ) : (
               <Link to={btn.to} key={btn.label}>
-                <button className={`main-action-btn${isRegister ? " transparent" : ""}`}>
+                <button
+                  className={`main-action-btn${
+                    isRegister ? " transparent" : ""
+                  }`}
+                >
                   {btn.label}
                 </button>
               </Link>
