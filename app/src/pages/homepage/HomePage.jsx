@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import astronauta from "../../assets/astronauta.png";
 /* import CardList from "../../components/cards/Cards"; */
 import bukialoCrm from "../../assets/logo_bukialo.png";
+import bukialoReservas from "../../assets/logo-buk-reservas.png";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
@@ -32,21 +33,25 @@ const HomePage = () => {
             explotar al máximo tus datos, optimizar procesos y ofrecer
             experiencias más inteligentes a tus clientes.
           </p>
-          <button>Quiero recibir más información</button>
-          <Link to="/">
-            <img
-              src={bukialoCrm}
-              alt="Bukialo CRM"
-              style={{
-                marginTop: "18px",
-                height: "54px",
-                objectFit: "contain",
-                filter: "drop-shadow(0 2px 12px #28ddc1aa)",
-                transition: "transform 0.2s",
-              }}
-              className="bukialo-crm-logo"
-            />
-          </Link>
+          <div className="bukialo-logos">
+            <Link to="/reservas">
+              <img src={bukialoReservas} alt="Bukialo Reservas" style={{ marginTop: "18px", height: "150px", objectFit: "contain", filter: "drop-shadow(0 2px 12px #28ddc1aa)", transition: "transform 0.2s" }} />
+            </Link>
+            <Link to="/crm">
+              <img
+                src={bukialoCrm}
+                alt="Bukialo CRM"
+                style={{
+                  marginTop: "18px",
+                  height: "150px",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 2px 12px #28ddc1aa)",
+                  transition: "transform 0.2s",
+                }}
+                className="bukialo-crm-logo"
+              />
+            </Link>
+          </div>
         </header>
       </section>
 
