@@ -1,21 +1,14 @@
 import "./HomePage.css";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import astronauta from "../../assets/astronauta.png";
-import astronauta2 from "../../assets/astronauta 2.png";
-import CardList from "../../components/cards/Cards";
+/* import CardList from "../../components/cards/Cards"; */
+import bukialoCrm from "../../assets/logo_bukialo.png";
+import bukialoReservas from "../../assets/logo-buk-reservas.png";
+import { Link } from "react-router-dom";
+import bukialoAnalice from "../../assets/logo-feedback-analyze.png";
 
 const HomePage = () => {
-  const astroRef = useRef(null);
   const astro1Ref = useRef(null);
-
-  const handleAstro2Click = () => {
-    if (astroRef.current) {
-      astroRef.current.classList.add("astronauta-float");
-      setTimeout(() => {
-        astroRef.current.classList.remove("astronauta-float");
-      }, 4000);
-    }
-  };
 
   // Animación para el astronauta de arriba
   const handleAstro1Click = () => {
@@ -23,7 +16,7 @@ const HomePage = () => {
       astro1Ref.current.classList.add("astronauta-float-1");
       setTimeout(() => {
         astro1Ref.current.classList.remove("astronauta-float-1");
-      }, 4000); // Duración igual a la animación
+      }, 4000);
     }
   };
 
@@ -32,53 +25,50 @@ const HomePage = () => {
       {/* Banner principal */}
       <section className="banner-section">
         <header>
-          <h1>De la Visión a la Realidad</h1>
+          <h1>Agentes de IA que potencian tu negocio</h1>
           <p>
-            Te damos la bienvenida a <span>Bukialo</span>, tu asistente
-            inteligente para la gestión de turnos. Automatizá la reserva de
-            citas con nuestro Agente IA por WhatsApp y mantené tu agenda
-            sincronizada en Google Calendar. Desde tu cuenta podrás activar o
-            desactivar el bot y administrar tu número de contacto.
-            <br />
-            Probalo<span> gratis por 30 días</span> y descubrí cómo simplificar
-            tu gestión de turnos.
+            Creamos agentes inteligentes de reservas para industrias como salud,
+            turismo, logística y más, automatizando agendas a través de
+            WhatsApp, web o redes sociales. Nuestras soluciones también se
+            conectan con tus sistemas existentes <span>—como CRMs—</span> para
+            explotar al máximo tus datos, optimizar procesos y ofrecer
+            experiencias más inteligentes a tus clientes.
           </p>
-          <button>Quiero recibir más información</button>
+          <div className="bukialo-logos">
+            <Link to="/feedbackAnalize">
+              <img
+                src={bukialoAnalice}
+                alt="Bukialo Analice"
+                className="bukialo-crm-logo"
+              />
+            </Link>
+            <Link to="/reservas">
+              <img
+                src={bukialoReservas}
+                alt="Bukialo Reservas"
+                className="bukialo-crm-logo"
+              />
+            </Link>
+            <Link to="/crm">
+              <img
+                src={bukialoCrm}
+                alt="Bukialo CRM"
+                className="bukialo-crm-logo"
+              />
+            </Link>
+          </div>
         </header>
       </section>
 
-      {/* Sección con imagen y texto */}
-      <section className="feature-section">
-        <div className="feature-img-container">
-          <img
-            src={astronauta}
-            alt="Astronauta Bukialo"
-            className="feature-img"
-            ref={astro1Ref}
-            onClick={handleAstro1Click}
-          />
-        </div>
-        <div className="feature-text">
-          <h2>
-            <span className="feature-title-highlight">
-              Conocé nuestros planes
-            </span>
-          </h2>
-        </div>
-      </section>
-
-      {/* Cards */}
-      <div className="cards-astro2-wrapper">
-        <CardList />
-        <div className="astro2-container">
-          <img
-            src={astronauta2}
-            alt="Astronauta Bukialo 2"
-            className="astronauta2-img"
-            ref={astroRef}
-            onClick={handleAstro2Click}
-          />
-        </div>
+      {/* Astronauta 1 debajo del banner */}
+      <div className="astronauta1-below-banner">
+        <img
+          src={astronauta}
+          alt="Astronauta Bukialo"
+          className="astronauta1-img"
+          ref={astro1Ref}
+          onClick={handleAstro1Click}
+        />
       </div>
     </div>
   );
