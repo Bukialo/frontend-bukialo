@@ -278,3 +278,68 @@
     font-size: 0.98rem;
   }
 }
+
+@media (max-width: 500px) {
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 0 8px 0;
+    gap: 10px;
+    min-height: unset;
+  }
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    margin: 0 4px;
+    min-width: 0;
+    max-width: 100vw;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .footer-left {
+    gap: 12px;
+    margin-left: 0;
+  }
+  .footer-left h1 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+  .footer-left p,
+  .footer-center p,
+  .footer-right a {
+    font-size: 0.93rem;
+  }
+  .footer-center {
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0 4px 8px 4px;
+    padding: 0;
+    gap: 6px;
+  }
+  .footer-center input[type="email"] {
+    width: 96vw;
+    max-width: 96vw;
+    font-size: 0.95rem;
+    padding: 10px 10px;
+  }
+  .footer-center button {
+    width: 96vw;
+    max-width: 120px;
+    font-size: 0.95rem;
+    padding: 8px 0;
+  }
+  .footer-right {
+    margin: 0 4px 8px 4px;
+    min-width: 0;
+    max-width: 100vw;
+    gap: 4px;
+  }
+  .footer-right a {
+    font-size: 0.93rem;
+    margin: 1px 0;
+  }
+  .footer-left p:last-child {
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+}
