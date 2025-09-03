@@ -150,8 +150,7 @@ jobs:
           cd aws-s3
           terraform init
           #terraform plan
-          terraform destroy -auto-approve
-          #terraform apply -auto-approve
+          terraform apply -auto-approve
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
